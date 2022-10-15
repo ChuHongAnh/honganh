@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script type="text/javascript">
+        var stdList = []
+        var std={
+            'fullname':'Chu Thi Hong Anh',
+            'age':"21",
+            'Address':"Hưng Yên",
+            'email':"chuhonganh@gmail.com",
+        }
+        stdList.push(std)
+        stdList.push({
+            'fullname':'A',
+            'age':"22",
+            'Address':"Hưng Yên",
+            'email':"chuhonganh@gmail.com",
+
+        })
+        stdList.push({
+            'fullname':'B',
+            'age':"23",
+            'Address':"Hưng Yên",
+            'email':"chuhonganh@gmail.com",
+
+        })
+        stdList.push({
+            'fullname':'C',
+            'age':"24",
+            'Address':"Hưng Yên",
+            'email':"chuhonganh@gmail.com",
+
+        })
+        console.log(stdList)
+       
+    </script>
+   <table border="1" cellpadding="5">
+    <thead>
+        <tr>
+            <th>STT</th>
+            <th>Ten</th>
+            <th>Tuoi</th>
+            <th>Dia Chi</th>
+            <th>Email</th>
+        </tr>
+    </thead>
+    <tbody>
+     <script type="text/javascript">
+       for (var i = 0; i < stdList.length; i++) {
+		document.writeln(
+            `<tr>
+			<td>${i+1}</td>
+			<td>${stdList[i].fullname}</td>
+			<td>${stdList[i].age}</td>
+			<td>${stdList[i].Address}</td>
+            <td>${stdList[i].email}</td>
+		</tr>`) 
+    }
+        </script>
+    </tbody>
+
+   </table>
+
+</body>
+</html>

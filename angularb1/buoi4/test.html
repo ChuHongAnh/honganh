@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html ng-app="MyApp">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+	<title>Dependences Injection in AngularJS for beginner</title>
+</head>
+<body>
+<div class="container" ng-controller="MyController1">
+	{{fullname}} - {{abc}}
+	<ul>
+		<li>{{std.fullname}}</li>
+		<li>{{std.address}}</li>
+	</ul>
+
+	<ul>
+		<li>{{subject.subjectName}}</li>
+	</ul>
+</div>
+<div class="container" ng-controller="MyController2">
+	{{fullname}}
+	<ul>
+		<li>{{std.fullname}}</li>
+		<li>{{std.address}}</li>
+	</ul>
+
+	<ul>
+		<li>{{subject.subjectNo}}</li>
+	</ul>
+</div>
+
+<script type="text/javascript">
+	var app = angular.module('MyApp', [])
+	var stdJs = {
+		'fullname': 'A',
+		'address': 'Ha Noi'
+	}
+
+	app.value('fullname', 'TRAN VAN A')
+	app.value('std', stdJs)
+
+	app.constant('abc', 'OKOK')
+
+	app.provider('subject', [function () {
+		this.$get = [function() {
+			return {
+				"subjectNo": "S01",
+				"subjectName": "Lap Trinh C"
+			};
+		}];
+	}])
+
+	app.factory('subjectFactory', [function () {
+		return {
+			"subjectNo": "S01",
+			"subjectName": "Lap Trinh C"
+		};
+	}])
+
+	app.service('subjectService', [function () {
+		this.subjectNo = 'S01'
+		this.subjectName = 'HTML/CSS/JS'
+
+		this.test = function() {
+			console.log('~~~ OKOK ~~~')
+		}
+	}])
+
+	app.controller('MyController1', ['$scope', 'fullname', 'std', 'abc', 'subjectService', function ($scope, fullname, std, abc, subjectService) {
+		$scope.fullname = fullname
+		$scope.std = std
+		$scope.abc = abc
+		$scope.subject = subjectService
+
+		stdJs.fullname = 'Xin chao !!! OKOK'
+
+		subjectService.test()
+	}])
+
+	app.controller('MyController2', ['$scope', 'fullname', 'std', 'subject', function ($scope, fullname, std, subject) {
+		$scope.fullname = fullname
+		$scope.std = std
+		$scope.subject = subject
+	}])
+</script>
+</body>
+</html>

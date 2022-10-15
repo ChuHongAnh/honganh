@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Quan Ly Sinh Vien</title>
+
+    <style type="text/css">
+        .container {
+            width: 600px;
+            margin: 0px auto;
+            border: solid 2px blue;
+        }
+
+        .container .header {
+            background-color: blue;
+            padding: 6px;
+            color: white;
+        }
+
+        .container .body {
+            padding:  20px 10px;
+        }
+
+        .container .body button {
+            background-color: green;
+            border: solid 2px green;
+            padding: 5px;
+            color: white;
+            cursor: pointer;
+        }
+
+        .container .body button:hover {
+            background-color: orange;
+            border: solid 2px orange;
+        }
+
+        .container .body input {
+            width: 95%;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        Input product's detail information
+    </div>
+    <div class="body">
+        <form method="post" onsubmit="return saveData();">
+            <label>Product Name: </label>
+            <input required type="text" name="productname" id="productname_id">
+            <label>Category Name: </label>
+            <input required type="text" name="categoryname" id="categoryname_id">
+            <label>Price: </label>
+            <input required type="text" name="Price" id="Price_id">
+            <label>Quantily: </label>
+            <input required type="text" name="Quantily" id="quantily_id">
+            <label>Total price: </label>
+            <input required type="text" name="Totalprice" id="totalprice_id">
+            <label>manufacturer Name: </label>
+            <input required type="text" name="manufacturername" id="manufacturername_id">
+            <button>Add Product</button>
+            <button onclick="resetIndex()" type="reset" style="background-color: orange; border: solid 2px orange;">Reset</button>
+        </form>
+    </div>
+</div>
+
+<div class="container" style="margin-top: 30px">
+    <div class="header">
+        Management Product
+    </div>
+    <div class="body">
+        <table border="1" style="width: 100%">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Product Name</th>
+                    <th>Category Name</th>
+                    <th>Price</th>
+                    <th>Quantily</th>
+                    <th>Manufacturer Name</th>
+                    <th style="width: 50px"></th>
+                    <th style="width: 50px"></th>
+                </tr>
+            </thead>
+            <tbody id="result">
+                
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var productnameTag = document.getElementById('fullname_id')
+    var usernameTag = document.getElementById('username_id')
+    var emailTag = document.getElementById('email_id')
+    var birthdayTag = document.getElementById('birthday_id')
+
+    var resultTag = document.getElementById('result')
+
+    var stdList = []
+
+    var json = localStorage.getItem('stdList')
+    if(json != null && json != "") {
+        stdList = JSON.parse(json)
+        showData()
+    }
+
+    function resetIndex() {
+        currentIndex = -1
+    }
+
+    function saveData() {
+        var fullname = fullnameTag.value
+        var username = usernameTag.value
+        var email = emailTag.value
+        var birthday = birthdayTag.value
+
+        var std = {
+            'fullname': fullname,
+            'username': username,
+            'email': email,
+            'birthday': birthday
+        }
+
+        if(currentIndex >= 0) {
+            stdList[currentIndex] = std
+            currentIndex = -1
+        } else {
+            stdList.push(std)
+        }
+        
+        console.log(stdList)
+
+        showData()
+
+        //Luu thong tin sinh vien vao localStorage
+        //B1. Chuyen stdList -> json
+        var json = JSON.stringify(stdList)
+        localStorage.setItem('stdList', json)
+
+        return false
+    }
+
+    function showData() {
+        resultTag.innerHTML = ''
+
+        var index = 0
+        for(var item of stdList) {
+            resultTag.innerHTML += `<tr>
+                <td>${index + 1}</td>
+                <td>${item.username}</td>
+                <td>${item.fullname}</td>
+                <td>${item.email}</td>
+                <td>${item.birthday}</td>
+                <td>
+                    <button onclick="editItem(${index})">Edit</button>
+                </td>
+                <td>
+                    <button onclick="deleteItem(${index})">Delete</button>
+                </td>
+            </tr>`
+            index++
+        }
+    }
+
+    var currentIndex = -1
+    function editItem(index) {
+        currentIndex = index
+
+        var std = stdList[index]
+
+        fullnameTag.value = std.fullname
+        usernameTag.value = std.username
+        emailTag.value = std.email
+        birthdayTag.value = std.birthday
+    }
+
+    function deleteItem(index) {
+        option = confirm('Ban co chac chan muon xoa sinh vien nay khong?')
+        if(!option) return
+
+        stdList.splice(index, 1)
+
+        showData()
+
+        //Luu thong tin sinh vien vao localStorage
+        //B1. Chuyen stdList -> json
+        var json = JSON.stringify(stdList)
+        localStorage.setItem('stdList', json)
+    }
+</script>
+</body>
+</html>

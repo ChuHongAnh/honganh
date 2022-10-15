@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+   <div>
+    <label>fullname</label>
+    <input type="text" name="fullname" id="fullname_id"placehoder="Enter full name">
+<br/><br/><br/>
+    <label>fullname</label>
+    <input type="email" name="email" id="email_id"placehoder="Enter email">
+    <br/><br/><br/>
+    <label>fullname</label>
+    <input type="Address" name="Address" id="Address_id"placehoder="Enter Address">
+    <br/><br/><br/>
+    <button onclick="Click1">Click1</button>
+    <button onclick="Click2">Click2</button>
+   </div>
+<script type="text/javascript">
+    function Click1(){
+       // alert('xin chao A')
+       //binding theo id
+       var fullnametag=document.getElementById('fullname_id')
+       console.log(fullnametag)
+       console.log(fullnametag.type)
+       console.log(fullnametag.name)
+       console.log(fullnametag.Id)
+       console.log(fullnametag.spacehoder)
+     fullnametag.style.color="red"
+
+       console.log(fullnametag.value)
+    }
+    function Click2(){
+        alert('xin chao B')
+    }
+   
+</script>
+</body>
+</html>

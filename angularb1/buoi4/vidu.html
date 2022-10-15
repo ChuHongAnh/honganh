@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html ng-app="MyApp">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
+	<title>Feedback Management APP</title>
+</head>
+<body>
+    <div class="card mt-3" ng-controller="InputController">
+        <div class="card-header bg-info text-white">
+            CONTACT US
+        </div>
+        <div class="card-body">
+            <form method="post" ng-submit="saveData()">
+                <div class="form-group mb-3">
+                    <label>Full Name: </label>
+                    <input required type="text" name="fullname" class="form-control" placeholder="Enter fullnane" ng-model="fname">
+                </div>
+                <div class="form-group mb-3">
+                    <label>Email: </label>
+                    <input required type="email" name="email" class="form-control" placeholder="Enter email" ng-model="email">
+                </div>
+                <div class="form-group mb-3">
+                    <label>Phone Number: </label>
+                    <input required type="telno" name="phone" class="form-control" placeholder="Enter phone" ng-model="phone">
+                </div>
+                <div class="form-group mb-3">
+                    <label>Subject: </label>
+                    <input required type="text" name="subject" class="form-control" placeholder="Enter subject" ng-model="subject">
+                </div>
+                <div class="form-group mb-3">
+                    <label>Message: </label>
+                    <textarea required rows="5" class="form-control" ng-model="msg"></textarea>
+                </div>
+                <div class="form-group mb-3">
+                    <button class="btn btn-success">Save Data</button>
+                    <button class="btn btn-warning" type="button" ng-click="resetData()">Reset Form</button>
+                </div>
+            </form>
+        </div>
+    </div>
+<div class="container">
+	<nav class="navbar navbar-expand-sm bg-light">
+	  <div class="container-fluid">
+	    <!-- Links -->
+	    <ul class="navbar-nav">
+	      <li class="nav-item">
+	        <a class="nav-link" href="#!list">Feedback List</a>
+	      </li>
+	      <li class="nav-item">
+	        <a class="nav-link" href="#!input">Add Feedback</a>
+	      </li>
+	    </ul>
+	  </div>
+	</nav>
+</div>
+
+<div class="container">
+	<div ng-view></div>
+</div>
+
+<script type="text/javascript">
+	var feedbackList = []
+
+	var app = angular.module('MyApp', ["ngRoute"])
+
+	app.value('feedbackList', feedbackList)
+
+	app.config(function($routeProvider) {
+	    $routeProvider
+	    .when("/", {
+	        templateUrl : "list.html",
+	        controller: "ListController"
+	    })
+	    .when("/list", {
+	        templateUrl : "list.html",
+	        controller: "ListController"
+	    })
+	    .when("/input", {
+	        templateUrl : "input.html",
+	        controller: "InputController"
+	    });
+	});
+
+	app.controller('InputController', ['$scope', 'feedbackList', function ($scope, feedbackList) {
+		$scope.saveData = function() {
+			var feedback = {
+				"fullname": $scope.fname,
+				"email": $scope.email,
+				"phone": $scope.phone,
+				"subject": $scope.subject,
+				"message": $scope.msg,
+
+			}
+			feedbackList.push(feedback)
+		}
+
+		$scope.resetData = function() {
+			$scope.fname = ""
+			$scope.email = ""
+			$scope.phone = ""
+			$scope.subject = ""
+			$scope.msg = ""
+		}
+	}])
+
+	app.controller('ListController', ['$scope', 'feedbackList', function ($scope, feedbackList) {
+		$scope.feedbackList = feedbackList
+	}])
+</script>
+</body>
+</html>

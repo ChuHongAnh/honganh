@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Login Page</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+<form method="post" onsubmit="return login()">
+<div class="container">
+	<h2>DANG NHAP HE THONG</h2>
+	<div class="row">
+		<div class="col-md-3">
+			<img src="photos/login.png" style="width: 60%;">
+		</div>
+		<div class="col-md-9">
+			<div class="form-group">
+				<label>Tai Khoan</label>
+				<input type="text" name="fullname" id="fullname">
+			</div>
+			<div class="form-group">
+				<label>Mat Khau</label>
+				<input type="password" name="pwd" id="pwd">
+			</div>
+			<div class="form-group">
+				<label></label>
+				<button>Dang Nhap</button>
+				<button type="reset">Nhap Lai</button>
+			</div>
+		</div>
+	</div>
+</div>
+</form>
+
+<div class="modal" id="MyModal">
+	<div class="modal-body">
+		<div class="content-body" id="msg_id">
+			Dang Nhap Thanh Cong
+		</div>
+		<div class="content-footer">
+			<button onclick="dismissModal()">OK</button>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	var fullnameTag = document.getElementById('fullname')
+	var pwdTag = document.getElementById('pwd')
+	var msgTag = document.getElementById('msg_id')
+	var modalTag = document.getElementById('MyModal')
+
+
+	function login() {
+		if(fullnameTag.value == "") {
+			// alert("Tai khoan khong dc de rong")
+			msgTag.innerHTML = "Tai khoan khong dc de rong"
+			modalTag.style.display = "block"
+			return false
+		}
+
+		if(pwdTag.value == "") {
+			// alert("Mat khau khong dc de rong")
+			msgTag.innerHTML = "Mat khau khong dc de rong"
+			modalTag.style.display = "block"
+			return false
+		}
+
+		// alert("Dang nhap thanh cong")
+		msgTag.innerHTML = "Dang nhap thanh cong"
+		modalTag.style.display = "block"
+		return false
+	}
+
+	function dismissModal() {
+		modalTag.style.display = "none"
+	}
+</script>
+</body>
+</html>
+</html>

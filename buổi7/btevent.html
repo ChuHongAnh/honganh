@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Binding HTML & Javascript</title>
+
+	<style type="text/css">
+		.container {
+			width: 500px;
+			margin: 0px auto;
+		}
+	</style>
+</head>
+<body>
+<div class="container">
+	<button onclick="click1()"> Nhap gia tri A</button>
+	<button onclick="Click2()"> Nhap gia trị B</button>
+    <button onclick="click3()">In Ket Qua</button>
+</div>
+
+<script type="text/javascript">
+	var a=0;
+	var b=0;
+	function click1() {
+    a =prompt('nhap A')
+		
+	}
+
+	function click2() {
+	b =prompt('nhap B')
+		
+	}
+    function click3(){
+
+        alert('Tong A va B')
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html ng-app="MyApp">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+
+	<title>AngularJS for beginner</title>
+</head>
+<body ng-controller="MyController">
+
+	<div class="card mt-3">
+		<div class="card-header bg-primary text-white">
+		Management Products
+		</div>
+
+			<table class="table table-bordered table-hover mt-3">
+				<thead>
+					<tr>
+						<th>STT</th>
+						<th>Ten</th>
+						<th>Tuoi</th>
+						<th>Diachi</th>
+						<th>email</th>
+
+						<th style="width: 50px;"></th>
+						<th style="width: 50px;"></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="item in feedbackList">
+						<td>{{ $index + 1 }}</td>
+						<td>{{ item.fullname }}</td>
+						<td>{{ item.age }}</td>
+						<td>{{ item.subject }}</td>
+						<td>{{ item.email }}</td>
+
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	var app = angular.module('MyApp', [])
+	app.controller('MyController', ['$scope', function ($scope) {
+		//Noi code model <-> binding view <-> controller
+		$scope.title = "AngularJS for beginer"
+	
+
+		$scope.feedbackList = [
+			{
+				"fullname": "TRAN VAN B",
+				"email": "a@gmail.com",
+				"age": "22",
+				"subject": "Ha Noi",
+				
+			}, {
+				"fullname": "Chu Hồng Ánh",
+				"email": "abc@gmail.com",
+				"age": "21",
+				"subject": "Hưng Yên",
+			},
+            {
+				"fullname": "Nguyễn Thùy Dương",
+				"email": "c@gmail.com",
+				"age": "18",
+				"subject": "Hưng Yên",
+			}
+		]
+
+		$scope.saveData = function() {
+			var data = {
+				"fullname": $scope.fname,
+				"email": $scope.email,
+				"age": $scope.age,
+				"subject": $scope.subject,
+				
+			}
+			console.log(data)
+		}
+	}])
+</script>
+</body>
+</html>

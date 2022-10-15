@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Quan Ly Form Thanh Toan</title>
+
+	<style type="text/css">
+		.container {
+			width: 640px;
+			background-color: #8cf5e3;
+			margin: 0px auto;
+			padding: 6px;
+		}
+
+		h3, h2 {
+			color: blue;
+		}
+
+		table, tr, td {
+			border: solid 1px green;
+		}
+
+		input:focus, select:focus, textarea:focus {
+			background-color: yellow;
+		}
+	</style>
+</head>
+<body>
+	<form method="post">
+	<div class="container">
+		<h2>Purchase Order Form</h2>
+		<h3>Product Information</h3>
+		<table border="0" style="width: 100%">
+			<tr>
+				<td style="width: 180px">Product: </td>
+				<td>
+					<select required id="product" onchange="updateProduct()">
+						<option value="">Select</option>
+						<option value="650">Comfort Sleeper</option>
+						<option value="975">Morgan Kids Bed</option>
+						<option value="480">Entertainment Cabinet</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>Unit Price ($):</td>
+				<td>
+					<input required disabled type="number" id="unit_price">
+				</td>
+			</tr>
+			<tr>
+				<td>Quantity:</td>
+				<td>
+					<input required disabled type="number" id="quantity" onkeyup="inputQuantity()">
+				</td>
+			</tr>
+			<tr>
+				<td>Total Price ($):</td>
+				<td>
+					<input required disabled type="number" id="total_price">
+				</td>
+			</tr>
+		</table>
+
+		<h3>Shipping Information</h3>
+		<table border="0" style="width: 100%">
+			<tr>
+				<td style="width: 180px">Full Name: </td>
+				<td>
+					<!-- a-zA-Z_: 6 -> 50 -->
+					<input required type="text" id="fullname" pattern="[a-zA-Z ]{6,50}">
+				</td>
+			</tr>
+			<tr>
+				<td>Shipping Address:</td>
+				<td>
+					<textarea required rows="5" style="width: 100%" id="shipping_address"></textarea>
+				</td>
+			</tr>
+			<tr>
+				<td>Credit Card:</td>
+				<td>
+					<select required id="credit_card" onchange="updateCreditCard()">
+						<option value="">Select</option>
+						<option value="650">Visa</option>
+						<option value="975">Master Card</option>
+						<option value="480">American Express</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>Credit Card Number:</td>
+				<td>
+					<input disabled required type="number" min="1000" max="9999" id="card_num_1" style="width: 80px" onkeyup="checkLength()">
+					<input disabled required type="number" min="1000" max="9999" id="card_num_2" style="width: 80px" onkeyup="checkLength()">
+					<input disabled required type="number" min="1000" max="9999" id="card_num_3" style="width: 80px" onkeyup="checkLength()">
+					<input disabled required type="number" min="1000" max="9999" id="card_num_4" style="width: 80px" onkeyup="checkLength()">
+					<!-- <input disabled required type="text" pattern="[0-9]{4}" id="card_num_1" style="width: 80px" maxlength="4">
+					<input disabled required type="text" pattern="[0-9]{4}" id="card_num_2" style="width: 80px" maxlength="4">
+					<input disabled required type="text" pattern="[0-9]{4}" id="card_num_3" style="width: 80px" maxlength="4">
+					<input disabled required type="text" pattern="[0-9]{4}" id="card_num_4" style="width: 80px" maxlength="4"> -->
+				</td>
+			</tr>
+		</table>
+
+		<p style="text-align: center">
+			<button>Submit</button>
+			<button type="reset">Reset</button>
+		</p>
+	</div>
+	</form>
+
+<script type="text/javascript">
+	var productTag = document.getElementById('product')
+	var unitPriceTag = document.getElementById('unit_price')
+	var quantityTag = document.getElementById('quantity')
+	var totalPriceTag = document.getElementById('total_price')
+	var fullnameTag = document.getElementById('fullname')
+	var shippingAddressTag = document.getElementById('shipping_address')
+	var creditCardTag = document.getElementById('credit_card')
+	var card_num_1Tag = document.getElementById('card_num_1')
+	var card_num_2Tag = document.getElementById('card_num_2')
+	var card_num_3Tag = document.getElementById('card_num_3')
+	var card_num_4Tag = document.getElementById('card_num_4')
+
+	function updateProduct() {
+		if(productTag.value != "") {
+			quantityTag.disabled = false
+			unitPriceTag.value = productTag.value
+		} else {
+			quantityTag.disabled = true
+			unitPriceTag.value = 0
+		}
+	}
+
+	function inputQuantity() {
+		totalPriceTag.value = unitPriceTag.value * quantityTag.value
+	}
+
+	function updateCreditCard() {
+		if(creditCardTag.value != "") {
+			card_num_1Tag.disabled = false
+			card_num_2Tag.disabled = false
+			card_num_3Tag.disabled = false
+			card_num_4Tag.disabled = false
+		} else {
+			card_num_1Tag.disabled = true
+			card_num_2Tag.disabled = true
+			card_num_3Tag.disabled = true
+			card_num_4Tag.disabled = true
+		}
+	}
+
+	function checkLength() {
+		if(card_num_1Tag.value.length > 4) {
+			card_num_1Tag.value = card_num_1Tag.value.substring(0, 4)
+		}
+		if(card_num_2Tag.value.length > 4) {
+			card_num_2Tag.value = card_num_2Tag.value.substring(0, 4)
+		}
+		if(card_num_3Tag.value.length > 4) {
+			card_num_3Tag.value = card_num_3Tag.value.substring(0, 4)
+		}
+		if(card_num_4Tag.value.length > 4) {
+			card_num_4Tag.value = card_num_4Tag.value.substring(0, 4)
+		}
+	}
+</script>
+</body>
+</html>
